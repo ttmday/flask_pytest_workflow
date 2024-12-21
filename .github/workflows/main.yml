@@ -43,7 +43,7 @@ jobs:
           echo "Reverting... " && git show HEAD
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git revert HEAD --no-edit
-          git push origin main
+          git reset --hard HEAD~1
+          git push origin main --force
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
