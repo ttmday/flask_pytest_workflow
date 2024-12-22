@@ -39,11 +39,4 @@ jobs:
 
       - name: Revert commit if test fail
         if: ${{failure()}}
-        run: |
-          echo "Reverting... "
-          git config user.name "Eliezer Capuano"
-          git config user.email "jeliezercapuanolopez@gmail.com"
-          git revert HEAD --no-edit
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: exit 1
