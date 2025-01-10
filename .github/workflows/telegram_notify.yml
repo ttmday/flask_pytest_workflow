@@ -17,7 +17,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Created commit:
-            Commit message: ${{github.event.workflow_run.head_commit.message}}
+            Event: ${{github.event.workflow_run.event}}
+            Commit: ${{github.event.workflow_run.head_commit}}
+            Sha: ${{github.event.workflow_run.head_sha}}
             Status Test: Success
   on-failure:
     runs-on: ubuntu-latest
