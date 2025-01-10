@@ -26,7 +26,8 @@ jobs:
           message: |
             Created commit:
             Event: ${{github.event.workflow_run.event}}
-            Commit: ${{env.Message}}
+            Head Commit: ${{toJson(github.event.head_commit)}}
+            Commit: ${{toJson(github.event.workflow_run.head_commit)}}
             Sha: ${{github.event.workflow_run.head_sha}}
             Status Test: Success
   on-failure:
