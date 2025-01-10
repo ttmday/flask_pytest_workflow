@@ -5,17 +5,11 @@ on:
     workflows: [Test Workflow]
     types: [completed]
 
-env:
-  Message: ''
-
 jobs:
   on-success:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Message Environment
-        run: |
-          git log --pretty=%B >> $Message
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
@@ -23,7 +17,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Created commit:
-            Commit message: ${{env.Message}}
+            Commit message: ${{github.event.head_commit.message}}
             Status Test: Success
   on-failure:
     runs-on: ubuntu-latest
