@@ -12,6 +12,10 @@ jobs:
     env:
       Message: ''
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Get commit message
         run: Message=$(git log -1 --pretty=%B)
       - name: send telegram message on push
