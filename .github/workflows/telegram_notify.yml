@@ -5,12 +5,13 @@ on:
     workflows: [Test Workflow]
     types: [completed]
 
+env:
+  Message: ''
+
 jobs:
   on-success:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    env:
-      Message: ''
     steps:
       - name: Message Environment
         run: |
