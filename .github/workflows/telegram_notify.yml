@@ -16,19 +16,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Get commit message
-        run: Message=$(git log -1 --pretty=%B)
+
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            Created commit:
+            Commit:
+            Actor: ${{github.event.workflow_run.head_commit.author.name}}
             Event: ${{github.event.workflow_run.event}}
-            Head Commit: ${{toJson(github.event.head_commit)}}
-            Commit: ${{toJson(github.event.workflow_run.head_commit)}}
-            Sha: ${{github.event.workflow_run.head_sha}}
+            Message: ${{github.event.workflow_run.head_commit.message}}
+            Id: ${{github.event.workflow_run.head_commit.id}}
             Status Test: Success
   on-failure:
     runs-on: ubuntu-latest
