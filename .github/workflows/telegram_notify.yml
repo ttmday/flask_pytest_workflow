@@ -16,6 +16,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Getting commits
+        run: |
+          echo "Commits:" > commits.txt
+          git log --pretty=format:'%h - %an, %ar : %s' > commits.txt
+          cat commits.txt
 
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
@@ -26,8 +31,9 @@ jobs:
             Commit:
             Actor: ${{github.event.workflow_run.head_commit.author.name}}
             Event: ${{github.event.workflow_run.event}}
-            Message: ${{github.event.workflow_run.head_commit.message}}
             Id: ${{github.event.workflow_run.head_commit.id}}
+            $(cat commits.txt)
+
             Status Test: Success
   on-failure:
     runs-on: ubuntu-latest
