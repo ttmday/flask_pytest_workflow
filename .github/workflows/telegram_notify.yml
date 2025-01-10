@@ -13,7 +13,7 @@ jobs:
       Message: ''
     steps:
       - name: Get commit message
-        run: Message=$(git log -1 -pretty=%B)
+        run: Message=$(git log -1 --pretty=%B)
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
